@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import moment from 'moment';
+
 import { Container, Form } from './style';
 
 import api from '../../services/api';
@@ -18,11 +20,14 @@ export default class Main extends Component {
     e.preventDefault();
 
     try {
-      const response = await api.get(`/repos/${this.state.repositoryInput}`);
+      const { data: repository } = await api.get(`/repos/${this.state.repositoryInput}`);
+
+      // formatando o campo de data
+      repository.lastCommit = moment(repository.pushed_at).fromNow();
 
       this.setState({
         repositoryInput: '',
-        repositores: [...this.state.repositores, response.data],
+        repositores: [...this.state.repositores, repository],
       });
     } catch (err) {
       console.log(err);
