@@ -12,6 +12,7 @@ import logo from '../../assets/logo.png';
 
 export default class Main extends Component {
   state = {
+    repositoryError: false,
     repositoryInput: '',
     repositores: [],
   };
@@ -28,8 +29,10 @@ export default class Main extends Component {
       this.setState({
         repositoryInput: '',
         repositores: [...this.state.repositores, repository],
+        repositoryError: false,
       });
     } catch (err) {
+      this.setState({ repositoryError: true });
       console.log(err);
     }
   };
@@ -39,7 +42,7 @@ export default class Main extends Component {
       <Container>
         <img src={logo} alt="GitHub Compare" />
 
-        <Form onSubmit={this.handleAddReapisitory}>
+        <Form withError={this.state.repositoryError} onSubmit={this.handleAddReapisitory}>
           <input
             type="text"
             placeholder="usuário/repositório"

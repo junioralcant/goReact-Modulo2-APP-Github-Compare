@@ -18,10 +18,13 @@ export const Form = styled.form`
     height: 55px;
     padding: 0 20px;
     background: #fff;
-    border: 0;
     font-size: 18px;
     color: #444;
     border-radius: 3px;
+
+    border: ${props => (props.withError
+    ? '2px solid #F00'
+    : 0)}; /* se meu props.withError igual a true a dicione a seguite borda, se não deixe a borda 0*/
   }
 
   button {
